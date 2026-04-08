@@ -1,0 +1,75 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | foam-extend: Open Source CFD                    |
+|  \\    /   O peration     | Version:     4.0                                |
+|   \\  /    A nd           | Web:         http://www.foam-extend.org         |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    object      PotESolid;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions [1 2 -3 0 0 -1 0];
+
+internalField   uniform 0;
+
+boundaryField
+{
+    floor
+    {
+       type          zeroGradient ;   
+    }
+    ceiling
+    {
+       type          zeroGradient ;   
+    } 
+    inletWalls
+    {
+        type          cyclic    ;
+    }
+    outletWalls
+    {
+        type          cyclic    ;
+    }
+
+    frontAndBack
+    {
+        type            zeroGradient;
+    }
+
+    topWall
+    {
+//        type            coupledPotential;
+//        value           uniform 0;
+       type            solidWallMixedPotentialCoupled;
+       PotEnbr         PotE;
+       sigma           sigma;
+       value           uniform 0;
+
+    }
+
+    botWall
+    {
+//        type            coupledPotential;
+//        value           uniform 0;
+       type            solidWallMixedPotentialCoupled;
+       PotEnbr         PotE;
+       sigma           sigma;
+       value           uniform 0;
+    }
+
+    leftAndRight
+    {
+        type           zeroGradient;
+    }
+
+   
+}
+
+
+// ************************************************************************* //
